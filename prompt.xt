@@ -1,0 +1,49 @@
+Build a macOS SwiftUI Stack app from scratch at ~/Desktop/mac-apps/StackApp with all of the following, in this exact order:
+
+### 1. FOLDER STRUCTURE
+mkdir -p ~/Desktop/mac-apps/StackApp/Sources/StackApp
+
+### 2. FILES TO CREATE
+- Package.swift (swift-tools-version:6.0, macOS v14, swiftLanguageMode v5)
+- Sources/StackApp/main.swift (NSApplication + AppDelegate entry)
+- Sources/StackApp/StackModel.swift (StackItem + NamedStack structs)
+- Sources/StackApp/ContentView.swift (full app)
+
+### 3. APP FEATURES (all in ContentView.swift)
+- Sidebar with search box (filters name + notes, live counter)
+- Create named stack (name + notes form)
+- Push / Pop values (LIFO, Enter-to-push)
+- Visual stack list (top item highlighted, ▲ indicator, UUID prefix)
+- Edit stack name + notes (✏️ button + right-click menu)
+- Drag-to-reorder stacks (disabled during search)
+- Right-click context menu: Rename/Edit, Delete
+- Onboarding (3 pages, dots, Back/Next/Skip/Get Started, shows once via @AppStorage)
+- Help sheet (⌘⇧/) with Why / How to use / Benefits sections
+- Dark mode (System/Light/Dark via toolbar menu, persists via @AppStorage)
+
+### 4. ICON
+- Expect user to have downloaded a 1024x1024 PNG to project root
+- Ask for filename if not obvious
+- Generate .icns via sips + iconutil (all 10 sizes)
+
+### 5. BUILD & BUNDLE
+- swift build -c release
+- Assemble .app with Contents/MacOS + Contents/Resources + Info.plist
+- Bundle ID: com.ikbhal.stackapp, Version 1.0.0
+- Ad-hoc codesign (codesign --force --deep --sign -)
+
+### 6. DEPLOY
+- cp -r to /Applications/
+- Create Desktop alias (symlink or Finder alias)
+- Fix Gatekeeper: xattr -cr
+
+### 7. GITHUB
+- Create .gitignore (.build/, build/, *.icns, .DS_Store)
+- git init, add, commit
+- gh repo create StackApp --public --source=. --remote=origin --push
+
+### 8. VERIFY
+- open /Applications/StackApp.app
+- Report success/failure
+
+Give me ALL shell commands in ONE copy-pasteable block. No Xcode. VS Code + terminal only. Use Swift 6.3.3 / macOS 26.
